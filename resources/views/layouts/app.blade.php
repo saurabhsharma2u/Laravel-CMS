@@ -73,6 +73,7 @@
         </nav>
 
         <main class="py-4">
+            @auth
             <div class="container">
                     <div class="row">
                             <div class="col-md-4">
@@ -87,6 +88,9 @@
                             </div>
                         </div>
             </div>
+@else
+@yield('content')
+@endauth
             
         </main>
     </div>
