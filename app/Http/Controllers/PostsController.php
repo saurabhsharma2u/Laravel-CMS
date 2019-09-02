@@ -68,9 +68,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.create')->with('post',$post);
     }
 
     /**
@@ -80,9 +80,31 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(PostsRequest $request, Post $post)
+    {   
+        
+        if($request->image)
+        {
+            $Image = $request->image->store('posts');
+            $post->update([
+                'title'=>$request->title,
+                'description'=>$request->description,
+                'content'=>$request->content,
+                'published_at'=>$request->published_at,
+                'image'=>$Image
+            ]);
+        }else {
+            $post->update([
+                'title'=>$request->title,
+                'description'=>$request->description,
+                'content'=>$request->content,
+                'published_at'=>$request->published_at,
+                
+            ]);
+        }
+       
+        session()->flash('success','post Updated Successfully');
+        return redirect(route('posts.index'));
     }
 
     /**
@@ -91,8 +113,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        session()->flash('success','post Deleted Successfully');
+        return redirect(route('posts.index'));
     }
 }

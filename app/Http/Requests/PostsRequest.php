@@ -33,5 +33,14 @@ class PostsRequest extends FormRequest
                 'image'=>'required|image'
             ];
         }
+        if($this->method()=='PUT')
+        {
+            return [
+                'title'=>'required',
+                'description'=>'required',
+                'content'=>'required',
+                'image'=>'image'
+            ];
+        }
     }
 }

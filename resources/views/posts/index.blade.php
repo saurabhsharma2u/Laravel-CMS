@@ -56,7 +56,7 @@
         const HandleDelete = (id) => {
             if(id){
                 let form = document.getElementById('DeletepostForm');
-                form.action = 'categories/'+id;
+                form.action = 'posts/'+id;
                  $('#Deletepost').modal('show');
             }else{
                 $('#Deletepost').modal('hide');
