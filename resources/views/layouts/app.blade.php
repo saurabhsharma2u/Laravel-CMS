@@ -84,7 +84,7 @@
                     <div class="col-md-4">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <a href="#">Post</a>
+                                <a href="/posts">Post</a>
                             </li>
                             <li class="list-group-item">
                                 <a href="/categories">Categories</a>
