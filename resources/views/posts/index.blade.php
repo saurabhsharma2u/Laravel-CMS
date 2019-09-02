@@ -7,24 +7,31 @@
         <div class="card-header">
             Posts
         </div>
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                    <th>Name</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    @foreach ($posts as $post)
-                      <tr>
-                            <td>{{ $post->title }}</td>
-                      <td>
-                          <a href="{{route('posts.edit',$post->id ) }}" class="btn btn-primary">Edit</a> 
-                          <a href="javascript:void(0)" onclick="HandleDelete({{ $post->id}})" class="btn btn-danger">Delete</a>
-                      </td>
-                      </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="card-body">     
+          @if ($posts->count()>0)
+           <table class="table">
+              <thead>
+                  <th>Name</th>
+                  <th>Action</th>
+              </thead>
+              <tbody>
+                  @foreach ($posts as $post)
+                    <tr>
+                          <td>{{ $post->title }}</td>
+                    <td>
+                      @if (!$post->trashed())
+                        <a href="{{route('posts.edit',$post->id ) }}" class="btn btn-primary">Edit</a>   
+                      @endif
+                        
+                    <a href="javascript:void(0)" onclick="HandleDelete({{ $post->id}})" class="btn btn-danger">{{ $post->trashed()?'Delete':'Trash' }}</a>
+                    </td>
+                    </tr>
+                  @endforeach
+              </tbody>
+          </table>
+           @else
+               <h3 class="text-center">No Posts</h3>
+           @endif
             <div class="modal fade" id="Deletepost" tabindex="-1" role="dialog" aria-labelledby="DeletepostLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <form id="DeletepostForm" action="" method="POST">
